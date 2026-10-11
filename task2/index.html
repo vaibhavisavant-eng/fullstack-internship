@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LuxeShop — Premium products at unbeatable prices. Shop the latest trends in fashion, electronics, and lifestyle." />
+  <title>LuxeShop | Premium E-Commerce Store</title>
+
+  <!-- Google Fonts: Syne (headings) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3 CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       TOP ANNOUNCEMENT BAR
+  ============================================================ -->
+  <div id="announcementBar" class="announcement-bar" role="banner">
+    <div class="container text-center">
+      <p class="mb-0">
+        <i class="bi bi-lightning-charge-fill me-1"></i>
+        <strong>Flash Sale!</strong> Use code <span class="code-chip">LUXE25</span> for 25% off your first order.
+        <button class="announce-close" id="closeAnnouncement" aria-label="Close announcement">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav id="mainNav" class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+    <div class="container">
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="#home" aria-label="LuxeShop Home">
+        <span class="logo-icon"><i class="bi bi-bag-heart-fill"></i></span>
+        <span class="logo-text">Luxe<span class="logo-accent">Shop</span></span>
+      </a>
+
+      <!-- Right controls (mobile: cart + toggler) -->
+      <div class="d-flex align-items-center gap-3 d-lg-none">
+        <!-- Mobile cart -->
+        <a href="#" class="cart-btn" id="mobileCartBtn" aria-label="View cart">
+          <i class="bi bi-bag"></i>
+          <span class="cart-badge" id="mobileCartCount">0</span>
+        </a>
+        <!-- Bootstrap toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- Nav links -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto gap-lg-1" role="list">
+          <li class="nav-item"><a class="nav-link active" href="#home"         id="navHome">Home</a></li>
+          <li class="nav-item"><a class="nav-link"        href="#products"     id="navProducts">Products</a></li>
+          <li class="nav-item"><a class="nav-link"        href="#features"     id="navFeatures">Why Us</a></li>
+          <li class="nav-item"><a class="nav-link"        href="#testimonials" id="navTestimonials">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link"        href="#newsletter"   id="navNewsletter">Newsletter</a></li>
+        </ul>
+
+        <!-- Desktop right actions -->
+        <div class="nav-actions d-none d-lg-flex align-items-center gap-3">
+          <button class="icon-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+          <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button>
+          <!-- Desktop cart -->
+          <a href="#" class="cart-btn" id="desktopCartBtn" aria-label="View cart">
+            <i class="bi bi-bag"></i>
+            <span class="cart-badge" id="desktopCartCount">0</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       CART SIDEBAR (slide-in)
+  ============================================================ -->
+  <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
+  <aside id="cartSidebar" class="cart-sidebar" aria-label="Shopping cart" role="complementary">
+    <div class="cart-header">
+      <h2 class="cart-title"><i class="bi bi-bag me-2"></i>Your Cart</h2>
+      <button id="closeCart" class="cart-close-btn" aria-label="Close cart"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty" id="cartEmpty">
+        <i class="bi bi-bag-x" aria-hidden="true"></i><br/>Your cart is empty
+      </p>
+      <ul class="cart-items list-unstyled" id="cartItems"></ul>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-subtotal d-flex justify-content-between mb-3">
+        <span>Subtotal</span>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+      <button class="btn btn-primary-custom w-100 mb-2" id="checkoutBtn">
+        Checkout <i class="bi bi-arrow-right ms-1"></i>
+      </button>
+      <button class="btn btn-outline-custom w-100" id="clearCartBtn">
+        Clear Cart
+      </button>
+    </div>
+  </aside>
+
+
+  <!-- ============================================================
+       HERO / HOME SECTION
+  ============================================================ -->
+  <section id="home" class="hero-section">
+    <!-- Decorative shapes -->
+    <div class="hero-shape shape-1" aria-hidden="true"></div>
+    <div class="hero-shape shape-2" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="row align-items-center min-vh-section gy-5">
+
+        <!-- Left: Copy -->
+        <div class="col-lg-6 hero-copy">
+          <div class="hero-badge animate-up">
+            <i class="bi bi-stars me-1"></i> New Season 2026
+          </div>
+          <h1 class="hero-title animate-up delay-1">
+            Elevate Your<br/>
+            <span class="text-gradient">Style &amp; Life</span>
+          </h1>
+          <p class="hero-subtitle animate-up delay-2">
+            Discover handpicked premium products — from cutting-edge tech to
+            timeless fashion — delivered fast, always at the best price.
+          </p>
+          <div class="hero-offer animate-up delay-3">
+            <span class="offer-tag">Limited Offer</span>
+            <span class="offer-text">Up to <strong>50% OFF</strong> on selected items</span>
+          </div>
+          <div class="hero-actions animate-up delay-4 d-flex flex-wrap gap-3">
+            <a href="#products" class="btn btn-primary-custom" id="heroShopNowBtn">
+              Shop Now <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+            <a href="#features" class="btn btn-ghost-custom" id="heroLearnMoreBtn">
+              Why LuxeShop
+            </a>
+          </div>
+          <!-- Trust badges -->
+          <div class="trust-row animate-up delay-4 d-flex flex-wrap gap-4 mt-4">
+            <span class="trust-badge"><i class="bi bi-shield-check-fill me-1 text-green"></i>Secure Checkout</span>
+            <span class="trust-badge"><i class="bi bi-truck me-1 text-green"></i>Free Shipping $50+</span>
+            <span class="trust-badge"><i class="bi bi-arrow-counterclockwise me-1 text-green"></i>Easy Returns</span>
+          </div>
+        </div>
+
+        <!-- Right: Hero visual -->
+        <div class="col-lg-6 text-center animate-up delay-2">
+          <div class="hero-visual-wrap">
+            <div class="hero-visual">
+              <img
+                src="https://placehold.co/520x460/1a1033/c084fc?text=Hero+Product"
+                alt="Featured product collection"
+                class="hero-img"
+                loading="eager"
+              />
+            </div>
+            <!-- Floating stats -->
+            <div class="float-stat stat-orders" aria-hidden="true">
+              <i class="bi bi-bag-check-fill"></i>
+              <div>
+                <strong>12k+</strong>
+                <span>Orders</span>
+              </div>
+            </div>
+            <div class="float-stat stat-rating" aria-hidden="true">
+              <i class="bi bi-star-fill text-warning"></i>
+              <div>
+                <strong>4.9</strong>
+                <span>Rating</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </section>
+
+
+  <!-- ============================================================
+       CATEGORY PILLS  (quick-filter bar)
+  ============================================================ -->
+  <section class="category-bar section-muted" aria-label="Product categories">
+    <div class="container">
+      <div class="category-scroll d-flex gap-3 justify-content-center flex-wrap py-4">
+        <button class="cat-pill active" data-cat="all"         id="catAll">All</button>
+        <button class="cat-pill"        data-cat="electronics" id="catElec"><i class="bi bi-cpu me-1"></i>Electronics</button>
+        <button class="cat-pill"        data-cat="fashion"     id="catFash"><i class="bi bi-bag me-1"></i>Fashion</button>
+        <button class="cat-pill"        data-cat="lifestyle"   id="catLife"><i class="bi bi-house-heart me-1"></i>Lifestyle</button>
+        <button class="cat-pill"        data-cat="fitness"     id="catFit"><i class="bi bi-bicycle me-1"></i>Fitness</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURED PRODUCTS SECTION
+  ============================================================ -->
+  <section id="products" class="section-padding">
+    <div class="container">
+
+      <!-- Section header -->
+      <div class="section-header text-center mb-5 reveal">
+        <p class="section-label">Handpicked for You</p>
+        <h2 class="section-title">Featured <span class="text-gradient">Products</span></h2>
+        <p class="section-subtitle">Curated quality across every category — always at the best price.</p>
+        <div class="section-rule" aria-hidden="true"></div>
+      </div>
+
+      <!-- Products grid -->
+      <div class="row g-4" id="productsGrid">
+
+        <!-- Product Card 1 -->
+        <div class="col-sm-6 col-lg-4 product-item reveal" data-cat="electronics">
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://placehold.co/480x340/6c63ff/fff?text=Wireless+Headphones"
+                alt="Wireless Headphones"
+                class="product-img"
+                loading="lazy"
+              />
+              <span class="product-badge badge-sale">-30%</span>
+              <div class="product-actions-overlay">
+                <button class="action-btn" aria-label="Add to Wishlist — Wireless Headphones">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <button class="action-btn" aria-label="Quick view — Wireless Headphones">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-body">
+              <span class="product-category">Electronics</span>
+              <h3 class="product-name">Wireless Headphones</h3>
+              <div class="product-rating" aria-label="Rating: 4.8 out of 5">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(128)</span>
+              </div>
+              <div class="product-price-row">
+                <span class="price-current">$79.99</span>
+                <span class="price-original">$114.99</span>
+              </div>
+              <button
+                class="btn btn-primary-custom w-100 add-to-cart-btn"
+                data-product-id="1"
+                data-product-name="Wireless Headphones"
+                data-product-price="79.99"
+                data-product-img="https://placehold.co/80x80/6c63ff/fff?text=WH"
+                id="addToCart1"
+                aria-label="Add Wireless Headphones to cart"
+              >
+                <i class="bi bi-bag-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="col-sm-6 col-lg-4 product-item reveal" data-cat="fashion">
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://placehold.co/480x340/ff6584/fff?text=Leather+Sneakers"
+                alt="Premium Leather Sneakers"
+                class="product-img"
+                loading="lazy"
+              />
+              <span class="product-badge badge-new">New</span>
+              <div class="product-actions-overlay">
+                <button class="action-btn" aria-label="Add to Wishlist — Leather Sneakers">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <button class="action-btn" aria-label="Quick view — Leather Sneakers">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-body">
+              <span class="product-category">Fashion</span>
+              <h3 class="product-name">Premium Leather Sneakers</h3>
+              <div class="product-rating" aria-label="Rating: 5 out of 5">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="rating-count">(94)</span>
+              </div>
+              <div class="product-price-row">
+                <span class="price-current">$129.00</span>
+              </div>
+              <button
+                class="btn btn-primary-custom w-100 add-to-cart-btn"
+                data-product-id="2"
+                data-product-name="Premium Leather Sneakers"
+                data-product-price="129.00"
+                data-product-img="https://placehold.co/80x80/ff6584/fff?text=LS"
+                id="addToCart2"
+                aria-label="Add Premium Leather Sneakers to cart"
+              >
+                <i class="bi bi-bag-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="col-sm-6 col-lg-4 product-item reveal" data-cat="electronics">
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://placehold.co/480x340/43e97b/1a1a2e?text=Smart+Watch"
+                alt="Smart Watch Pro"
+                class="product-img"
+                loading="lazy"
+              />
+              <span class="product-badge badge-hot">Hot</span>
+              <div class="product-actions-overlay">
+                <button class="action-btn" aria-label="Add to Wishlist — Smart Watch Pro">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <button class="action-btn" aria-label="Quick view — Smart Watch Pro">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-body">
+              <span class="product-category">Electronics</span>
+              <h3 class="product-name">Smart Watch Pro</h3>
+              <div class="product-rating" aria-label="Rating: 4.5 out of 5">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(217)</span>
+              </div>
+              <div class="product-price-row">
+                <span class="price-current">$199.00</span>
+                <span class="price-original">$249.00</span>
+              </div>
+              <button
+                class="btn btn-primary-custom w-100 add-to-cart-btn"
+                data-product-id="3"
+                data-product-name="Smart Watch Pro"
+                data-product-price="199.00"
+                data-product-img="https://placehold.co/80x80/43e97b/1a1a2e?text=SW"
+                id="addToCart3"
+                aria-label="Add Smart Watch Pro to cart"
+              >
+                <i class="bi bi-bag-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Product Card 4 -->
+        <div class="col-sm-6 col-lg-4 product-item reveal" data-cat="lifestyle">
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://placehold.co/480x340/fa8231/fff?text=Scented+Candle+Set"
+                alt="Luxury Scented Candle Set"
+                class="product-img"
+                loading="lazy"
+              />
+              <div class="product-actions-overlay">
+                <button class="action-btn" aria-label="Add to Wishlist — Scented Candle Set">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <button class="action-btn" aria-label="Quick view — Scented Candle Set">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-body">
+              <span class="product-category">Lifestyle</span>
+              <h3 class="product-name">Luxury Scented Candle Set</h3>
+              <div class="product-rating" aria-label="Rating: 4.8 out of 5">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(63)</span>
+              </div>
+              <div class="product-price-row">
+                <span class="price-current">$39.99</span>
+                <span class="price-original">$54.99</span>
+              </div>
+              <button
+                class="btn btn-primary-custom w-100 add-to-cart-btn"
+                data-product-id="4"
+                data-product-name="Luxury Scented Candle Set"
+                data-product-price="39.99"
+                data-product-img="https://placehold.co/80x80/fa8231/fff?text=SC"
+                id="addToCart4"
+                aria-label="Add Luxury Scented Candle Set to cart"
+              >
+                <i class="bi bi-bag-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Product Card 5 -->
+        <div class="col-sm-6 col-lg-4 product-item reveal" data-cat="fitness">
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://placehold.co/480x340/a29bfe/fff?text=Yoga+Mat+Pro"
+                alt="Yoga Mat Pro"
+                class="product-img"
+                loading="lazy"
+              />
+              <span class="product-badge badge-sale">-20%</span>
+              <div class="product-actions-overlay">
+                <button class="action-btn" aria-label="Add to Wishlist — Yoga Mat Pro">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <button class="action-btn" aria-label="Quick view — Yoga Mat Pro">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-body">
+              <span class="product-category">Fitness</span>
+              <h3 class="product-name">Yoga Mat Pro</h3>
+              <div class="product-rating" aria-label="Rating: 4.7 out of 5">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(189)</span>
+              </div>
+              <div class="product-price-row">
+                <span class="price-current">$47.99</span>
+                <span class="price-original">$59.99</span>
+              </div>
+              <button
+                class="btn btn-primary-custom w-100 add-to-cart-btn"
+                data-product-id="5"
+                data-product-name="Yoga Mat Pro"
+                data-product-price="47.99"
+                data-product-img="https://placehold.co/80x80/a29bfe/fff?text=YM"
+                id="addToCart5"
+                aria-label="Add Yoga Mat Pro to cart"
+              >
+                <i class="bi bi-bag-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Product Card 6 -->
+        <div class="col-sm-6 col-lg-4 product-item reveal" data-cat="fashion">
+          <article class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://placehold.co/480x340/fd79a8/fff?text=Silk+Tote+Bag"
+                alt="Silk Tote Bag"
+                class="product-img"
+                loading="lazy"
+              />
+              <span class="product-badge badge-new">New</span>
+              <div class="product-actions-overlay">
+                <button class="action-btn" aria-label="Add to Wishlist — Silk Tote Bag">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <button class="action-btn" aria-label="Quick view — Silk Tote Bag">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-body">
+              <span class="product-category">Fashion</span>
+              <h3 class="product-name">Silk Tote Bag</h3>
+              <div class="product-rating" aria-label="Rating: 4.6 out of 5">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="rating-count">(41)</span>
+              </div>
+              <div class="product-price-row">
+                <span class="price-current">$64.00</span>
+              </div>
+              <button
+                class="btn btn-primary-custom w-100 add-to-cart-btn"
+                data-product-id="6"
+                data-product-name="Silk Tote Bag"
+                data-product-price="64.00"
+                data-product-img="https://placehold.co/80x80/fd79a8/fff?text=TB"
+                id="addToCart6"
+                aria-label="Add Silk Tote Bag to cart"
+              >
+                <i class="bi bi-bag-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </article>
+        </div>
+
+      </div><!-- /#productsGrid -->
+
+      <!-- View all CTA -->
+      <div class="text-center mt-5 reveal">
+        <a href="#" class="btn btn-outline-custom btn-lg px-5" id="viewAllProductsBtn">
+          View All Products <i class="bi bi-grid ms-1"></i>
+        </a>
+      </div>
+
+    </div><!-- /.container -->
+  </section>
+
+
+  <!-- ============================================================
+       PROMO BANNER
+  ============================================================ -->
+  <section class="promo-banner">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-md-8">
+          <p class="promo-label">Weekend Exclusive</p>
+          <h2 class="promo-heading">Get <span>Extra 25% Off</span> Everything</h2>
+          <p class="promo-sub">Valid Saturday &amp; Sunday only. No minimum spend required.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <div class="promo-countdown d-flex gap-3 justify-content-start justify-content-md-end" aria-label="Countdown timer">
+            <div class="countdown-unit">
+              <span id="cdHours" class="cd-num">08</span>
+              <span class="cd-label">Hrs</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit">
+              <span id="cdMins" class="cd-num">45</span>
+              <span class="cd-label">Min</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit">
+              <span id="cdSecs" class="cd-num">00</span>
+              <span class="cd-label">Sec</span>
+            </div>
+          </div>
+          <a href="#products" class="btn btn-white-custom mt-3" id="promoShopBtn">Grab the Deal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURES / WHY US SECTION
+  ============================================================ -->
+  <section id="features" class="section-padding">
+    <div class="container">
+
+      <div class="section-header text-center mb-5 reveal">
+        <p class="section-label">Why Choose LuxeShop</p>
+        <h2 class="section-title">Shopping Made <span class="text-gradient">Effortless</span></h2>
+        <div class="section-rule" aria-hidden="true"></div>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- Feature 1: Free Delivery -->
+        <div class="col-sm-6 col-lg-3 reveal">
+          <div class="feature-card text-center h-100">
+            <div class="feature-icon-wrap">
+              <i class="bi bi-truck" aria-hidden="true"></i>
+            </div>
+            <h3 class="feature-title">Free Delivery</h3>
+            <p class="feature-desc">
+              Free shipping on all orders over $50. Express delivery available
+              nationwide within 24 hours.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 2: Easy Returns -->
+        <div class="col-sm-6 col-lg-3 reveal">
+          <div class="feature-card text-center h-100">
+            <div class="feature-icon-wrap">
+              <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+            </div>
+            <h3 class="feature-title">Easy Returns</h3>
+            <p class="feature-desc">
+              Not satisfied? Return any item within 30 days — no questions asked.
+              Full refund guaranteed.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 3: Secure Payment -->
+        <div class="col-sm-6 col-lg-3 reveal">
+          <div class="feature-card text-center h-100">
+            <div class="feature-icon-wrap">
+              <i class="bi bi-shield-lock" aria-hidden="true"></i>
+            </div>
+            <h3 class="feature-title">Secure Payment</h3>
+            <p class="feature-desc">
+              Industry-leading SSL encryption protects every transaction.
+              We accept Visa, Mastercard, PayPal, and more.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 4: 24/7 Support -->
+        <div class="col-sm-6 col-lg-3 reveal">
+          <div class="feature-card text-center h-100">
+            <div class="feature-icon-wrap">
+              <i class="bi bi-headset" aria-hidden="true"></i>
+            </div>
+            <h3 class="feature-title">24/7 Support</h3>
+            <p class="feature-desc">
+              Our award-winning support team is available around the clock
+              via chat, email, or phone.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       TESTIMONIALS SECTION
+  ============================================================ -->
+  <section id="testimonials" class="section-padding section-muted">
+    <div class="container">
+
+      <div class="section-header text-center mb-5 reveal">
+        <p class="section-label">What Customers Say</p>
+        <h2 class="section-title">Loved by <span class="text-gradient">Thousands</span></h2>
+        <div class="section-rule" aria-hidden="true"></div>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- Testimonial 1 -->
+        <div class="col-md-6 col-lg-4 reveal">
+          <blockquote class="testimonial-card h-100">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonial-text">
+              "Absolutely love the quality of everything I've ordered. The smart watch
+              exceeded my expectations — fast delivery and the packaging was premium."
+            </p>
+            <footer class="testimonial-footer">
+              <div class="testimonial-avatar" aria-hidden="true">SR</div>
+              <div>
+                <cite class="testimonial-name">Sofia Reyes</cite>
+                <span class="testimonial-role">Verified Buyer</span>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="col-md-6 col-lg-4 reveal">
+          <blockquote class="testimonial-card h-100 featured-testimonial">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonial-text">
+              "LuxeShop is my go-to for everything. The returns process was seamless —
+              zero hassle. I've recommended it to all my friends and family!"
+            </p>
+            <footer class="testimonial-footer">
+              <div class="testimonial-avatar" aria-hidden="true">MJ</div>
+              <div>
+                <cite class="testimonial-name">Marcus Johnson</cite>
+                <span class="testimonial-role">Loyal Customer · 3 yrs</span>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="col-md-6 col-lg-4 reveal">
+          <blockquote class="testimonial-card h-100">
+            <div class="testimonial-stars" aria-label="4 out of 5 stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+            </div>
+            <p class="testimonial-text">
+              "Great prices and the newsletter discount codes are genuinely useful.
+              The leather sneakers are the most comfortable I've ever owned!"
+            </p>
+            <footer class="testimonial-footer">
+              <div class="testimonial-avatar" aria-hidden="true">AP</div>
+              <div>
+                <cite class="testimonial-name">Aisha Patel</cite>
+                <span class="testimonial-role">Verified Buyer</span>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </section>
+
+
+  <!-- ============================================================
+       NEWSLETTER SECTION
+  ============================================================ -->
+  <section id="newsletter" class="section-padding newsletter-section">
+    <!-- Decorative blobs -->
+    <div class="nl-blob nl-blob-1" aria-hidden="true"></div>
+    <div class="nl-blob nl-blob-2" aria-hidden="true"></div>
+
+    <div class="container position-relative">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 text-center reveal">
+          <p class="section-label">Stay in the Loop</p>
+          <h2 class="section-title text-white">Get Exclusive <span class="text-gradient-light">Offers &amp; News</span></h2>
+          <p class="nl-subtitle">
+            Join 50,000+ subscribers. Unsubscribe anytime — no spam, ever.
+          </p>
+
+          <!-- Newsletter Form -->
+          <form id="newsletterForm" class="nl-form mt-4" novalidate aria-label="Newsletter signup form">
+
+            <!-- Name row -->
+            <div class="nl-field-wrap mb-3 text-start">
+              <label for="nlName" class="nl-label">Full Name</label>
+              <input
+                type="text"
+                id="nlName"
+                class="nl-input"
+                placeholder="Your full name"
+                autocomplete="name"
+                aria-required="true"
+                aria-describedby="nlNameError"
+              />
+              <span class="nl-error" id="nlNameError" role="alert" aria-live="polite"></span>
+            </div>
+
+            <!-- Email + button row -->
+            <div class="nl-input-group d-flex gap-2 flex-column flex-sm-row">
+              <div class="flex-grow-1 text-start">
+                <label for="nlEmail" class="nl-label">Email Address</label>
+                <input
+                  type="email"
+                  id="nlEmail"
+                  class="nl-input"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  aria-required="true"
+                  aria-describedby="nlEmailError"
+                />
+                <span class="nl-error" id="nlEmailError" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="nl-submit-wrap">
+                <label class="nl-label nl-label-hidden" aria-hidden="true">Subscribe</label>
+                <button type="submit" id="nlSubmitBtn" class="btn btn-primary-custom nl-submit-btn">
+                  <span id="nlBtnText">Subscribe</span>
+                  <span class="spinner-border spinner-border-sm ms-1 d-none" id="nlSpinner" role="status" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Success message -->
+            <div id="nlSuccess" class="nl-success d-none" role="alert">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              You're subscribed! Check your inbox for a welcome discount. 🎉
+            </div>
+
+          </form>
+
+          <!-- Privacy note -->
+          <p class="nl-privacy mt-3">
+            <i class="bi bi-lock-fill me-1"></i>
+            We respect your privacy. Your data is never shared or sold.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row gy-4 gx-5">
+
+        <!-- Brand column -->
+        <div class="col-lg-4">
+          <a class="footer-brand" href="#home" aria-label="LuxeShop Home">
+            <span class="logo-icon"><i class="bi bi-bag-heart-fill"></i></span>
+            <span class="logo-text">Luxe<span class="logo-accent">Shop</span></span>
+          </a>
+          <p class="footer-about mt-3">
+            Premium products, delivered with care. Your trusted online store
+            since 2018 — quality you can feel.
+          </p>
+          <!-- Social links -->
+          <div class="footer-social mt-3" aria-label="Social media">
+            <a href="#" class="social-icon" id="footerFacebook"  aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon" id="footerInstagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon" id="footerTwitter"   aria-label="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-icon" id="footerYoutube"   aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" class="social-icon" id="footerPinterest" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-6 col-lg-2">
+          <h4 class="footer-heading">Shop</h4>
+          <ul class="footer-links list-unstyled">
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+            <li><a href="#">Sale</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Fashion</a></li>
+          </ul>
+        </div>
+
+        <!-- Support Links -->
+        <div class="col-6 col-lg-2">
+          <h4 class="footer-heading">Support</h4>
+          <ul class="footer-links list-unstyled">
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Links -->
+        <div class="col-6 col-lg-2">
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links list-unstyled">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Affiliates</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-6 col-lg-2">
+          <h4 class="footer-heading">Contact</h4>
+          <ul class="footer-contact list-unstyled">
+            <li><i class="bi bi-envelope me-2"></i><a href="mailto:hello@luxeshop.com">hello@luxeshop.com</a></li>
+            <li><i class="bi bi-telephone me-2"></i><a href="tel:+18001234567">+1 800 123 4567</a></li>
+            <li><i class="bi bi-geo-alt me-2"></i>123 Commerce St, NY</li>
+          </ul>
+          <!-- Payment icons row -->
+          <div class="payment-icons mt-3" aria-label="Accepted payments">
+            <i class="bi bi-credit-card" title="Credit Card"></i>
+            <i class="bi bi-paypal" title="PayPal"></i>
+            <i class="bi bi-apple" title="Apple Pay"></i>
+          </div>
+        </div>
+
+      </div><!-- /.row -->
+
+      <hr class="footer-divider" />
+
+      <div class="footer-bottom d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+        <p class="mb-0">&copy; <span id="footerYear"></span> LuxeShop. All rights reserved.</p>
+        <div class="footer-legal d-flex gap-3">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+  </footer>
+
+  <!-- ============================================================
+       BACK TO TOP BUTTON
+  ============================================================ -->
+  <button id="backToTopBtn" class="back-to-top-btn" aria-label="Back to top" title="Back to top">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ============================================================
+       TOAST NOTIFICATION
+  ============================================================ -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+
+  <!-- Bootstrap 5 JS Bundle (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom Script -->
+  <script src="script.js"></script>
+</body>
+</html>

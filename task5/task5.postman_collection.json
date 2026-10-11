@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "e8124501-f921-4d1a-b33a-task5mysqlapi",
+		"name": "Task 5 - Express MySQL REST API Collection",
+		"description": "Postman Collection for testing Express MySQL User REST API endpoints with parameterized queries and database error handling.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. GET All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Fetch all users from MySQL database."
+			},
+			"response": []
+		},
+		{
+			"name": "2. GET User By ID (Success)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"1"
+					]
+				},
+				"description": "Fetch single user from MySQL by ID."
+			},
+			"response": []
+		},
+		{
+			"name": "3. GET User By ID (404 Not Found)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users/9999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"9999"
+					]
+				},
+				"description": "Returns 404 Not Found when user ID does not exist in DB."
+			},
+			"response": []
+		},
+		{
+			"name": "4. POST Create User (Success)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Edward Norton\",\n  \"email\": \"edward@example.com\",\n  \"age\": 35\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Insert new user record into MySQL table."
+			},
+			"response": []
+		},
+		{
+			"name": "5. POST Create User (Duplicate Email 409 Conflict)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Duplicate User\",\n  \"email\": \"alice@example.com\",\n  \"age\": 25\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Test UNIQUE email constraint handling returning 409 Conflict."
+			},
+			"response": []
+		},
+		{
+			"name": "6. PUT Update User (Success)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Alice Johnson Updated\",\n  \"email\": \"alice.updated@example.com\",\n  \"age\": 29\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"1"
+					]
+				},
+				"description": "Update user record in MySQL."
+			},
+			"response": []
+		},
+		{
+			"name": "7. DELETE User (Success)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"3"
+					]
+				},
+				"description": "Delete user record from MySQL by ID."
+			},
+			"response": []
+		}
+	]
+}
